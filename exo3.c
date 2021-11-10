@@ -71,6 +71,14 @@ float cord_vector(float x, float y, float z, float xt, float yt, float zt, float
     return (0);
 }
 
+float incid_vector(float * V)
+{
+    float incidx = 0;
+
+    incidx = fabs(asinf([HyPoThENuS(z0)] / norm_vector) * (180 / PI));
+    return (incidx);
+}
+
 /*
   int main(void)
   {
