@@ -12,14 +12,14 @@
 float *abs_vector(float x, float y, float z)
 {
     float *abs = malloc(sizeof(float) * 3);
-     if (abs == NULL) {
+    if (abs == NULL) {
         return NULL;
     } else {
-         abs[0] = x;
-         abs[1] = y;
-         abs[2] = z;
-     }
-     return (abs);
+        abs[0] = x;
+        abs[1] = y;
+        abs[2] = z;
+    }
+    return (abs);
 }
 
 float *sum_vector(float *V1, float *V2)
@@ -47,15 +47,7 @@ float *coef_vector(float *V, float m)
         coefx[2] = m * V[2];
     }
     return (coefx);
-}++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++666666666666666666666666666666666+++
-+
-
-
-
-
-
-+6
-
+}
 
 float norm_vector(float * V)
 {
@@ -67,30 +59,34 @@ float norm_vector(float * V)
 
 
 //declarer un vecteur V
-float cord_vector(float x1, float y1, float z1, float x2, float y2, float z2, float n)
+float * cord_vector(float x1, float y1, float z1, float x2, float y2, float z2, float n)
 {
 //    while ( n != 0) {
-        float xt, yt, zt;
-        float x, y, z;
-        float V[3] = 0;
+    float xt, yt, zt;
+    float x, y, z;
+    float *V;
+    V  = malloc(sizeof(float) * 2);
 
-        xt = x2 - x1;
-        yt = y2 - y1;
-        zt = z2 - z1; // il fallait trouver la loi horraire du vecteur, dont la formule est x = vt + x0.Je vais expliquer le reste quand ce sera plus clair pour moi egalement
-        x = x2 + (xt * n);
-        y = y2 + (yt * n);
-        z = z2 + (zt * n);
+    xt = x2 - x1;
+    yt = y2 - y1;
+    zt = z2 - z1; // il fallait trouver la loi horraire du vecteur, dont la formule est x = vt + x0.Je vais expliquer le reste quand ce sera plus clair pour moi egalement
+    x = x2 + (xt * n);
+    y = y2 + (yt * n);
+    z = z2 + (zt * n);
 
-        V[0] = x;
-        V[1] = y;
-        V[2] = z;
+    V[0] = x;
+    V[1] = y;
+    V[2] = z;
 /*      xt = xt + x;
-                yt = yt + y;
-                zt = zt + z;
-                n--; 
-                } */
+        yt = yt + y;
+        zt = zt + z;
+        n--; 
+        } */
+    // V[2] = 4;
+    // printf("%f\n", V[2]);
     return (V);
 }
+
 
 float check_paddle_reach(float z0, float z1)
 {
@@ -109,66 +105,23 @@ float check_paddle_reach(float z0, float z1)
     return (1);
 }
 
+
 float incid_vector(float * V)
 {
-    float incidx = 0;
-    float K[3];
+    float incidx;
 
-    K = cord_vector(x1,y1,z1,x2,y2,z2,n);
-    incidx = fabs(asinf(K[2] / norm_vector(V)) * (180 / PI));
+    incidx = asinf(V[2] / norm_vector(V)) * (180 / M_PI);
+
     return (incidx);  // le z a utiliser est le meme que celui des coordonnees de l'exo avant dernier.
 }
 
-/*
-  int main(void)
-  {
-  float *disp = abs_vector(2, 4, 6);
-  printf("x = %.3f\n", disp[0]);
-  printf("y = %.3f\n", disp[1]);
-  printf("z = %.3f\n", disp[2]);
-  return (0);
-  }
 
-
-  int main(int ac, char **av)
-  {
-  float * V = abs_vector(atof(av[1]), atof(av[2]), atof(av[3]));
-  printf("%.2f\n%.2f\n%.2f\n", V[0], V[1], V[2]);
-  return (0);
-  }
-
-  int main (int ac, char **av)
-  {
-  float * V1 = abs_vector(atof(av[1]), atof(av[2]), atof(av[3]));
-  float * V2 = abs_vector(atof(av[4]), atof(av[5]), atof(av[6]));
-  float *V = sum_vector(V1, V2);
-  printf("%.2f\n%.2f\n%.2f\n", V[0], V[1], V[2]); 
-  return (0);
-  }
-
-
-  int main (int ac, char **av)
-  {
-  float * V = abs_vector(atof(av[1]), atof(av[2]), atof(av[3]));
-  float * m = abs_vector(atof(av[0]));
-  float *Vx = coef_vector(V, m);
-  printf("%.2f\n%.2f\n%.2f\n", V[0], V[1], V[2]);
-  return (0);
-  }
-
-  int main (int ac, char **av)
-  {
-  float * V = abs_vector(atof(av[1]), atof(av[2]), atof(av[3])); 
-  float k = norm_vector(V);
-  printf("%.2f\n", k);
-  return (0);
-  }
-*/
-
-int main ()
+int main (int ac, char **av)
 {
-    printf("%.2f\n", n); 
-    float * V = abs_vector(atof(av[1]), atof(av[2]), atof(av[3]));
-    float k = cord_vector(V);
-    printf("%.2f\n%.2f\n%.2f\n", ); 
+    float  V[3];
+    V[0] = atof(av[1]);
+    V[1] = atof(av[2]);
+    V[2] = atof(av[3]);
+    float l = incid_vector(V);
+    printf("%.2f\n", l);
 }
