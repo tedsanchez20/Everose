@@ -47,7 +47,14 @@ float *coef_vector(float *V, float m)
         coefx[2] = m * V[2];
     }
     return (coefx);
-}
+}++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++666666666666666666666666666666666+++
++
+
+
+
+
+
++6
 
 
 float norm_vector(float * V)
@@ -60,23 +67,56 @@ float norm_vector(float * V)
 
 
 //declarer un vecteur V
-float cord_vector(float x, float y, float z, float xt, float yt, float zt, float n)
+float cord_vector(float x1, float y1, float z1, float x2, float y2, float z2, float n)
 {
-    while ( n != 0) {
-        xt = xt + x;
-        yt = yt + y;
-        zt = zt + z;
-        n--;
+//    while ( n != 0) {
+        float xt, yt, zt;
+        float x, y, z;
+        float V[3] = 0;
+
+        xt = x2 - x1;
+        yt = y2 - y1;
+        zt = z2 - z1; // il fallait trouver la loi horraire du vecteur, dont la formule est x = vt + x0.Je vais expliquer le reste quand ce sera plus clair pour moi egalement
+        x = x2 + (xt * n);
+        y = y2 + (yt * n);
+        z = z2 + (zt * n);
+
+        V[0] = x;
+        V[1] = y;
+        V[2] = z;
+/*      xt = xt + x;
+                yt = yt + y;
+                zt = zt + z;
+                n--; 
+                } */
+    return (V);
+}
+
+float check_paddle_reach(float z0, float z1)
+{
+    if (z1 == z0) {
+        printf("The ball won't reach the paddle.\n");
+        return (0);
     }
-    return (0);
+    if ((z1 > 0 && z0 > 0 && z0 < z1) || (z1 < 0 && z0 < 0 && z0 > z1 )) {
+        printf("The ball won't reach the paddle.\n");
+        return (0);
+    }
+    if ((z0 > 0 && z1 < 0) || (z0 < 0 && z1 > 0)) {
+        printf("The ball won't reach the paddle.\n");
+        return (0);
+    }
+    return (1);
 }
 
 float incid_vector(float * V)
 {
     float incidx = 0;
+    float K[3];
 
-    incidx = fabs(asinf([HyPoThENuS(z0)] / norm_vector) * (180 / PI));
-    return (incidx);
+    K = cord_vector(x1,y1,z1,x2,y2,z2,n);
+    incidx = fabs(asinf(K[2] / norm_vector(V)) * (180 / PI));
+    return (incidx);  // le z a utiliser est le meme que celui des coordonnees de l'exo avant dernier.
 }
 
 /*
